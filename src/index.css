@@ -1,0 +1,761 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Lock horizontal scrolling - allow only vertical movement */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
+  height: 100%;
+}
+
+/* CSS Custom Properties for navbar heights */
+:root {
+  --navbar-height-mobile: 80px;
+  --navbar-height-tablet: 88px;
+  --navbar-height-desktop: 96px;
+}
+
+/* Ensure background covers mobile screen and stays static */
+body {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Prevent horizontal scroll on all elements */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Touch screen specific - lock horizontal pan */
+body {
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
+}
+
+/* Prevent horizontal overflow on containers */
+#root {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Enhanced smooth scrolling with better performance */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Increased padding for better positioning */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Enhanced smooth scrolling for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 80px;
+  }
+  
+  /* Improve scroll performance on mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: 88px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 96px;
+  }
+}
+
+/* Enhanced scroll behavior for collapsible sections */
+.container-responsive {
+  scroll-behavior: smooth;
+}
+
+/* Ensure smooth transitions for collapsible content */
+[data-collapsible-content] {
+  scroll-behavior: smooth;
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure main content starts below navbar */
+main {
+  /* padding-top handled by component-level classes */
+}
+
+/* Force main content to be below navbar */
+main.relative {
+  /* padding-top handled by component-level classes */
+}
+
+/* Ensure navbar is always on top */
+nav.fixed {
+  z-index: 9999 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Ensure no content appears behind navbar */
+nav.fixed + main {
+  margin-top: var(--navbar-height-desktop) !important;
+}
+
+/* Force main content positioning */
+main.relative.space-y-0.z-10 {
+  padding-top: var(--navbar-height-desktop) !important;
+  margin-top: 0 !important;
+}
+
+/* Additional safety measures */
+main > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Responsive padding for main content */
+@media (max-width: 640px) {
+  main {
+    padding-top: var(--navbar-height-mobile) !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  main {
+    padding-top: var(--navbar-height-tablet) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    padding-top: var(--navbar-height-desktop) !important;
+  }
+}
+
+/* Enhanced scroll positioning for all sections */
+section[id] {
+  scroll-margin-top: 96px; /* Default scroll margin */
+}
+
+/* Improve scroll positioning for collapsible headers */
+[data-collapsible-header] {
+  scroll-margin-top: 96px;
+}
+
+@media (max-width: 640px) {
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+  
+  [data-collapsible-header] {
+    scroll-margin-top: 80px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+  
+  [data-collapsible-header] {
+    scroll-margin-top: 88px;
+  }
+}
+
+/* Navigation scroll effects */
+.scrolled {
+  @apply bg-black/95 border-blue-500/50;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+}
+
+/* Focus ring offset for dark backgrounds */
+.focus\:ring-offset-black:focus {
+  --tw-ring-offset-color: #000000;
+}
+
+/* Smooth mobile menu transitions */
+#mobile-menu {
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced mobile menu animation */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+/* Hide scrollbar but keep functionality - Cross-browser support */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Firefox scrollbar hiding */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Improve touch targets for mobile */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Prevent text selection on interactive elements */
+button, .touch-manipulation {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Improve tap highlighting */
+* {
+  -webkit-tap-highlight-color: rgba(103, 232, 249, 0.2);
+}
+
+/* Optimize font rendering for mobile */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Loading state for navigation buttons */
+.nav-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.2), transparent);
+  animation: navLoading 1.5s infinite;
+}
+
+@keyframes navLoading {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ===== BOTTOM TO TOP ANIMATIONS ===== */
+
+/* Main animation keyframes */
+@keyframes slideUpFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpFromBottomLarge {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpFromBottomSmall {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideUpStaggered {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation classes */
+.animate-slide-up-bottom {
+  animation: slideUpFromBottom 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-up-bottom-large {
+  animation: slideUpFromBottomLarge 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-up-bottom-small {
+  animation: slideUpFromBottomSmall 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-up-staggered {
+  animation: slideUpStaggered 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Staggered animation delays */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+.animate-delay-600 { animation-delay: 0.6s; }
+.animate-delay-700 { animation-delay: 0.7s; }
+.animate-delay-800 { animation-delay: 0.8s; }
+.animate-delay-900 { animation-delay: 0.9s; }
+.animate-delay-1000 { animation-delay: 1s; }
+
+/* Initial state for animations */
+.animate-initial {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+/* Animation trigger classes */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-on-scroll.animate-triggered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive animation adjustments */
+@media (max-width: 768px) {
+  .animate-slide-up-bottom {
+    animation-duration: 0.6s;
+  }
+  
+  .animate-slide-up-bottom-large {
+    animation-duration: 0.8s;
+  }
+  
+  .animate-slide-up-staggered {
+    animation-duration: 0.5s;
+  }
+}
+
+/* ===== END BOTTOM TO TOP ANIMATIONS ===== */
+
+/* Responsive Container Utilities */
+@layer components {
+  .container-responsive {
+    @apply w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16;
+    max-width: 100%;
+  }
+  
+  .container-small {
+    @apply max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl;
+  }
+  
+  .container-medium {
+    @apply max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl;
+  }
+  
+  .container-large {
+    @apply max-w-sm sm:max-w-4xl md:max-w-6xl lg:max-w-7xl xl:max-w-8xl 2xl:max-w-9xl;
+  }
+  
+  /* Responsive Text Utilities */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl;
+  }
+  
+  .text-responsive-sm {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl;
+  }
+  
+  .text-responsive-base {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl;
+  }
+  
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl;
+  }
+  
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+  }
+  
+  .text-responsive-3xl {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
+  }
+  
+  /* Responsive Spacing Utilities */
+  .space-responsive-xs {
+    @apply space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-5 xl:space-y-6;
+  }
+  
+  .space-responsive-sm {
+    @apply space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-8;
+  }
+  
+  .space-responsive-base {
+    @apply space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12;
+  }
+  
+  .space-responsive-lg {
+    @apply space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 xl:space-y-16;
+  }
+  
+  /* Responsive Padding Utilities */
+  .p-responsive-xs {
+    @apply p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6;
+  }
+  
+  .p-responsive-sm {
+    @apply p-3 sm:p-4 md:p-5 lg:p-6 xl:p-8;
+  }
+  
+  .p-responsive-base {
+    @apply p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12;
+  }
+  
+  .p-responsive-lg {
+    @apply p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16;
+  }
+  
+  /* Responsive Margin Utilities */
+  .m-responsive-xs {
+    @apply m-2 sm:m-3 md:m-4 lg:m-5 xl:m-6;
+  }
+  
+  .m-responsive-sm {
+    @apply m-3 sm:m-4 md:m-5 lg:m-6 xl:m-8;
+  }
+  
+  .m-responsive-base {
+    @apply m-4 sm:m-6 md:m-8 lg:m-10 xl:m-12;
+  }
+  
+  .m-responsive-lg {
+    @apply m-6 sm:m-8 md:m-10 lg:m-12 xl:m-16;
+  }
+  
+  /* Responsive Grid Utilities */
+  .grid-responsive-1 {
+    @apply grid grid-cols-1;
+  }
+  
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2;
+  }
+  
+  .grid-responsive-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  }
+  
+  .grid-responsive-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+  }
+  
+  /* Responsive Image Utilities */
+  .img-responsive {
+    @apply w-full h-auto object-contain;
+  }
+  
+  .img-responsive-cover {
+    @apply w-full h-auto object-cover;
+  }
+  
+  /* Responsive Button Utilities */
+  .btn-responsive-sm {
+    @apply px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-3 lg:px-6 lg:py-3 xl:px-8 xl:py-4 text-sm sm:text-base md:text-lg lg:text-xl;
+  }
+  
+  .btn-responsive-base {
+    @apply px-4 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 lg:px-10 lg:py-4 xl:px-12 xl:py-5 text-base sm:text-lg md:text-xl lg:text-2xl;
+  }
+  
+  .btn-responsive-lg {
+    @apply px-6 py-4 sm:px-8 sm:py-4 md:px-10 md:py-5 lg:px-12 lg:py-5 xl:px-16 xl:py-6 text-lg sm:text-xl md:text-2xl lg:text-3xl;
+  }
+}
+
+
+
+/* Floating Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.float-gentle {
+  animation: float-gentle 2.5s ease-in-out infinite;
+}
+
+
+
+/* Card Transition Animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out both;
+}
+
+/* Logo Pop Animation */
+@keyframes logoPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.logo-pop {
+  animation: logoPop 0.6s ease-in-out;
+}
+
+/* Loader Spinner */
+@keyframes spinGradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lv-spinner {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 3px solid rgba(103, 232, 249, 0.15);
+  border-top-color: rgba(103, 232, 249, 0.9);
+  animation: spinGradient 0.9s linear infinite;
+  box-shadow: 0 0 20px rgba(103, 232, 249, 0.25), inset 0 0 10px rgba(14, 165, 233, 0.25);
+}
+
+/* Responsive Performance Optimizations */
+@media (max-width: 640px) {
+  /* Reduce animation complexity on mobile */
+  .float, .float-slow, .float-gentle {
+    animation-duration: 4s;
+  }
+  
+  /* Optimize shadows for mobile */
+  * {
+    box-shadow: none !important;
+  }
+  
+  /* Use simpler gradients on mobile */
+  .bg-gradient-to-r {
+    background: linear-gradient(to right, var(--tw-gradient-stops)) !important;
+  }
+  
+  /* Ensure background covers mobile screen properly */
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  /* Fix for iOS Safari viewport height issues */
+  .fixed.inset-0 {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: -webkit-fill-available !important;
+  }
+}
+
+/* High DPI Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .img-responsive {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Background image optimizations */
+.bg-static-cover {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Mobile-specific background fixes */
+@media (max-width: 768px) {
+  .bg-static-cover {
+    height: 100vh !important;
+    height: -webkit-fill-available !important;
+    min-height: 100vh !important;
+  }
+}
+
+/* Landscape Mobile Optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  
+  .space-responsive-lg {
+    @apply space-y-4 sm:space-y-6;
+  }
+}
+
+/* Large Screen Optimizations */
+@media (min-width: 1920px) {
+  .container-large {
+    max-width: 120rem;
+  }
+  
+  .text-responsive-3xl {
+    @apply text-8xl;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { 
+    animation-duration: 0.001ms !important; 
+    animation-iteration-count: 1 !important; 
+    transition-duration: 0.001ms !important; 
+    scroll-behavior: auto !important;
+  }
+  .lv-spinner { animation: none; }
+  :where(.fade-in, .slide-in-left, .slide-in-right, .scale-in) {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  :where(.float, .float-slow, .float-gentle, .float-delay-1, .float-delay-2, .float-delay-3) {
+    animation: none !important;
+  }
+}
